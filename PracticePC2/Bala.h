@@ -16,7 +16,7 @@ public:
 		width = wi;
 		height = he;
 		direction = dir;
-		dx = dy = 25;
+		dx = dy = 30;
 		visible = true;
 		this->x = x;
 		this->y = y;
@@ -31,16 +31,16 @@ public:
 	// a =  1
 	// d = 4
 	void mover(Graphics^ g){
-		if (direction == 3 && y + height * 0.03 < g->VisibleClipBounds.Height){
+		if (direction == 3 && y + height * 0.03 <= g->VisibleClipBounds.Height){
 			y += dy;
 		}
-		if (direction == 2 && y > 0) {
+		if (direction == 2 && y >= 0) {
 			y -= dy;
 		}
-		if (direction == 4 && x + width * 0.03 < g->VisibleClipBounds.Width) {
+		if (direction == 4 && x + width * 0.03 <= g->VisibleClipBounds.Width) {
 			x += dx;
 		}
-		if (direction == 1 && x > 0) {
+		if (direction == 1 && x >= 0) {
 			x -= dx;
 		}
 	}

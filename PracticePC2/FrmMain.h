@@ -95,6 +95,7 @@ namespace PracticePC2 {
 			this->pnlCanvas->Name = L"pnlCanvas";
 			this->pnlCanvas->Size = System::Drawing::Size(1302, 687);
 			this->pnlCanvas->TabIndex = 0;
+			this->pnlCanvas->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &FrmMain::pnlCanvas_MouseDown);
 			// 
 			// FrmMain
 			// 
@@ -116,7 +117,7 @@ namespace PracticePC2 {
 		//clear
 		buffer->Graphics->Clear(Color::WhiteSmoke);
 		//collision
-		
+		control->colision(buffer->Graphics);
 		//move
 		control->moverTodo(buffer->Graphics);
 		//draw
@@ -148,13 +149,11 @@ namespace PracticePC2 {
 			control->agregarEnemigo(e);
 			break;
 
-	/*	case Keys::T:
-			Bala* b = new Bala(heroe->getX(), heroe->getY(), bmpBala->Width, bmpBala->Height, heroe->getDirection());
-			control->agregarBala(b);
-			break;*/
 		}
-
 	} 
-
-	};
+	private: System::Void pnlCanvas_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		Bala* b = new Bala(heroe->getX(), heroe->getY(), bmpBala->Width, bmpBala->Height, heroe->getDirection());
+		control->agregarBala(b);
+	}
+};
 }
