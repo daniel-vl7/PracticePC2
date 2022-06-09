@@ -5,7 +5,7 @@ class Heroe : public Personaje {
 
 public:
 
-	Heroe(int width, int height) : Personaje(width, height) {}
+	Heroe(int width, int height, int direction) : Personaje(width, height, direction) {}
 	~Heroe(){}
 
 	void mover(Graphics^ g, char i) {

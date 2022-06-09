@@ -123,7 +123,9 @@
     <ClCompile Include="FrmMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bala.h" />
     <ClInclude Include="Controlador.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="FrmMain.h">
       <FileType>CppForm</FileType>

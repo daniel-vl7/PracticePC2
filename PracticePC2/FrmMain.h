@@ -1,5 +1,8 @@
 #pragma once
 #include "Heroe.h"
+#include "Controlador.h"
+#include "Enemigo.h"
+#include <vector>
 namespace PracticePC2 {
 
 	using namespace System;
@@ -18,14 +21,20 @@ namespace PracticePC2 {
 		FrmMain(void)
 		{
 			InitializeComponent();
+
+			srand(time(NULL));
+
 			g = pnlCanvas->CreateGraphics();
 			space = BufferedGraphicsManager::Current;
 			buffer = space->Allocate(g, pnlCanvas->ClientRectangle);
 
+			bmpMapa = gcnew Bitmap("fondo1.png");
+			bmpHeroe = gcnew Bitmap("bruno.png");
+			bmpEnemigo = gcnew Bitmap("rojo.png");
+			bmpBala = gcnew Bitmap("pokebola.png");
 
-			bmpHeroe = gcnew Bitmap("heroe1.png");
-
-			heroe = new Heroe(bmpHeroe->Width / 4, bmpHeroe->Height / 4);
+			control = new Controlador();
+			heroe = new Heroe(bmpHeroe->Width / 4, bmpHeroe->Height / 4, 0);
 		}
 
 	protected:
@@ -52,8 +61,12 @@ namespace PracticePC2 {
 		BufferedGraphics^ buffer;
 
 		Bitmap^ bmpHeroe;
+		Bitmap^ bmpMapa;
+		Bitmap^ bmpEnemigo;
+		Bitmap^ bmpBala;
 
 		Heroe* heroe;
+		Controlador* control;
 		/// <summary>
 		/// Variable del diseñador necesaria.
 		/// </summary>
@@ -101,14 +114,47 @@ namespace PracticePC2 {
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		//clear
+		buffer->Graphics->Clear(Color::WhiteSmoke);
 		//collision
+		
 		//move
+		control->moverTodo(buffer->Graphics);
 		//draw
+		buffer->Graphics->DrawImage(bmpMapa, 0, 0, bmpMapa->Width * 1.5, bmpMapa->Height * 0.9);
+		control->dibujarTodo(buffer->Graphics, bmpEnemigo,bmpBala);
 		heroe->dibujar(buffer->Graphics, bmpHeroe);
 		//render
 		buffer->Render(g);
 	}
 	private: System::Void FrmMain_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-	}
+
+		switch (e->KeyCode)
+		{
+		case Keys::A:
+			heroe->mover(buffer->Graphics, 'A');
+			break;
+		case Keys::D:
+			heroe->mover(buffer->Graphics, 'D');
+			break;
+		case Keys::W:
+			heroe->mover(buffer->Graphics, 'W');
+			break;
+		case Keys::S:
+			heroe->mover(buffer->Graphics, 'S');
+			break;
+
+		case Keys::M:
+			Enemigo* e = new Enemigo(bmpEnemigo->Width / 4, bmpEnemigo->Height / 4, rand() % 2);
+			control->agregarEnemigo(e);
+			break;
+
+	/*	case Keys::T:
+			Bala* b = new Bala(heroe->getX(), heroe->getY(), bmpBala->Width, bmpBala->Height, heroe->getDirection());
+			control->agregarBala(b);
+			break;*/
+		}
+
+	} 
+
 	};
 }
