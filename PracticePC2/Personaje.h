@@ -17,9 +17,9 @@ protected:
 public:
 
 	Personaje(int width, int height){
-		Random^ r;
-		x = r->Next(60,150);
-		y = r->Next(60, 150);
+		
+		x =100;
+		y =100;
 		dx = dy = 5;
 		idx = idy = 0;
 		visible = true;
@@ -31,7 +31,7 @@ public:
 
 	void dibujar(Graphics^ g, Bitmap^ bmp) {
 		Rectangle section = Rectangle(idx * width, idy * height, width, height);
-		Rectangle zoom = Rectangle(x, y, width * 1.0, height * 1.0);
+		Rectangle zoom = Rectangle(x, y, width * 0.8, height * 0.8);
 		g->DrawImage(bmp, zoom, section, GraphicsUnit::Pixel);
 	}
 
